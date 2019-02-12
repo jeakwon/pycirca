@@ -1,0 +1,5 @@
+abf = pyabf.ABF("f1.abf")
+# abf.setSweep(3)
+# print(abf.sweepY) # sweep data (ADC)
+# print(abf.sweepC) # sweep command (DAC)
+# print(abf.sweepX) # sweep times (seconds)
