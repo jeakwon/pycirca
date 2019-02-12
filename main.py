@@ -1,13 +1,16 @@
-import pyabf
+from tools import gui
 import os
-import matplotlib.pyplot as plt
-filepath = os.path.expanduser('~/Desktop')
-filename = 'f1.abf'
-fullpath = os.path.join(filepath,'f1.abf')
-abf = pyabf.ABF(fullpath)
-abf.setSweep(3)
-print(abf.sweepY) # sweep data (ADC)
-print(abf.sweepC) # sweep command (DAC)
-print(abf.sweepX) # sweep times (seconds)
-plt.plot(abf.sweepX,abf.sweepY)
-plt.show()
+
+class Master:
+    def __init__(self,filenames=None,get_new_csv=False):
+        if filenames is None: filenames = gui.askfiles(filetypes=[('.abf','*.abf'),('all','*.*')])
+        self.filenames = filenames
+        self.check_csv_exist()
+        
+    def check_csv_exist(self):
+        for filename in self.filenames:
+
+            ID = os.path.splitext(os.path.basename(filename))[0]
+            csv = os.path.splitext(filename)[0]+'.csv'
+            csv_exist = os.path.exists(csv)
+            if not csv_exist: print('{}.csv not exist'.format(ID))
